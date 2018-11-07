@@ -2,24 +2,23 @@ import remeras.*
 import pedidosSucursales.*
 
 describe "test general" {
-	
-	const remeraLisaGris40 = new Remera (talle = 40, color = "Gris")
-	const remeraLisaGris42 = new Remera (talle = 42, color = "Gris")
-	const remeraLisaVerde40 = new Remera (talle = 40, color = "Verde")
-	const remeraLisaVerde42 = new Remera (talle = 42, color = "Verde")
-	const remeraBordada1 = new RemeraBordada (talle = 44, color = "Gris", cantColores = 1)
-	const remeraBordada2 = new RemeraBordada (talle = 44, color = "Gris", cantColores = 4)
+
+	const remeraLisaGris40 = new Remera(talle = 40, color = "Gris")
+	const remeraLisaGris42 = new Remera(talle = 42, color = "Gris")
+	const remeraLisaVerde40 = new Remera(talle = 40, color = "Verde")
+	const remeraLisaVerde42 = new Remera(talle = 42, color = "Verde")
+	const remeraBordada1 = new RemeraBordada(talle = 44, color = "Gris", cantColores = 1)
+	const remeraBordada2 = new RemeraBordada(talle = 44, color = "Gris", cantColores = 4)
 	const remeraFrozen = new RemeraSublimada(talle = 42, color = "Gris")
 	const remeraFrozenSinAcuerdo = new RemeraSublimada(talle = 42, color = "Gris", tieneConvenioPublicidad = false)
-	const flores = new Sucursal (minimoRemerasParaDescuento = 10)
-	const avellaneda = new Sucursal (minimoRemerasParaDescuento = 3)
-	const pedido1 = new Pedido (remera = remeraLisaGris42, cantidad = 5, sucursal = flores)
-	const pedido2 = new Pedido (remera = remeraLisaGris42, cantidad = 5, sucursal = avellaneda)
-	const pedido3 = new Pedido (remera = remeraFrozen, cantidad = 4, sucursal = flores)
-	const pedido4 = new Pedido (remera = remeraFrozen, cantidad = 4, sucursal = avellaneda)
-	const pedido5 = new Pedido (remera = remeraFrozenSinAcuerdo, cantidad = 4, sucursal = avellaneda)
-	const comercio = new Comercio (sucursales = [flores, avellaneda])
-
+	const flores = new Sucursal(minimoRemerasParaDescuento = 10)
+	const avellaneda = new Sucursal(minimoRemerasParaDescuento = 3)
+	const pedido1 = new Pedido(remera = remeraLisaGris42, cantidad = 5, sucursal = flores)
+	const pedido2 = new Pedido(remera = remeraLisaGris42, cantidad = 5, sucursal = avellaneda)
+	const pedido3 = new Pedido(remera = remeraFrozen, cantidad = 4, sucursal = flores)
+	const pedido4 = new Pedido(remera = remeraFrozen, cantidad = 4, sucursal = avellaneda)
+	const pedido5 = new Pedido(remera = remeraFrozenSinAcuerdo, cantidad = 4, sucursal = avellaneda)
+	const quilmes = new Sucursal(minimoRemerasParaDescuento = 10)
 
 	test "costo remeras" {
 		assert.equals(80, remeraLisaGris40.costo())
@@ -39,4 +38,10 @@ describe "test general" {
 		assert.equals(990, pedido5.precio())
 	}
 
+	test "sucursal registra un pedido" {
+		quilmes.registrarPedido(remeraFrozen, 10)
+		assert.equals(1, quilmes.pedidosRealizados().size())
+	}
+
 }
+

@@ -27,15 +27,18 @@ class Sucursal {
 	const property minimoRemerasParaDescuento
 	const property pedidosRealizados = []
 
-	method registrarPedido(pedido) {
-		pedidosRealizados.add(pedido)
+	method registrarPedido(modelo, cuantas) {
+		pedidosRealizados.add(new Pedido(remera = modelo, cantidad = cuantas, sucursal = self))
 	}
 
 	method totalFacturado() = pedidosRealizados.sum{ pedido => pedido.precio() }
 
 	method pedidoMasCaro() = pedidosRealizados.max{ pedido => pedido.precio() }
 
-	method vendioTodosLosTalles() = true // hacer
+	method vendioTodosLosTalles() {
+		// No llegue a hacerlo	
+		return true
+	}
 
 }
 
@@ -47,6 +50,8 @@ class Comercio {
 
 	method totalFacturado() = self.pedidosTotales().sum{ pedido => pedido.precio() }
 
+	method totalFacturadoEn(sucursal) = sucursal.totalFacturado()
+
 	method pedidoMasCaro() = self.pedidosTotales().max{ pedido => pedido.precio() }
 
 	method cantRemerasDe(color) = self.pedidosTotales().count{ pedido => pedido.remera().color() == color }
@@ -54,6 +59,13 @@ class Comercio {
 	method sucursalQueMasFacturo() = sucursales.max{ sucursal => sucursal.totalFacturado() }
 
 	method sucursalesQueVendieronTodosLosTalles() = sucursales.filter{ sucursal => sucursal.vendioTodosLosTalles() }
+
+	method tallesQueNoPidieron() = new Range(32, 48).difference(self.tallesQuePidieron())
+
+	method tallesQuePidieron() {
+		return [ 40, 41 ]
+	// No llegue, deberia devolver una coleccion con todos los talles que pidieron
+	}
 
 }
 
