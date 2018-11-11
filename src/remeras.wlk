@@ -39,6 +39,8 @@ class RemeraSublimada inherits Remera {
 	const anchoDibujo = 10
 	const altoDibujo = 15
 	const costoSublimadoCM2 = 0.50
+	
+	// TODO Deberías modelar la marca comercial, que podría resumir los tres atributos que siguen.
 	const dibujoEsPropiedadPrivada = true
 	const tieneConvenioPublicidad = true
 	const costoDibujo = 100
